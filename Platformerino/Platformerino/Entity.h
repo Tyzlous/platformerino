@@ -10,6 +10,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	virtual void Update();
 	Collider GetCollider();
+	void Move(sf::Vector2f offset);
 protected:
 	sf::RectangleShape* body = new sf::RectangleShape();
 	bool isDynamic;

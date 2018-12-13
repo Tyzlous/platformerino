@@ -6,6 +6,7 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position, bool isDynamic)
 {
 	body->setSize(size);
 	body->setPosition(position);
+	body->setFillColor(sf::Color::Green);
 	this->isDynamic = isDynamic;
 }
 
@@ -33,4 +34,9 @@ void Entity::Update()
 Collider Entity::GetCollider()
 {
 	return Collider(*body, isDynamic);
+}
+
+void Entity::Move(sf::Vector2f offset)
+{
+	body->move(offset);
 }
