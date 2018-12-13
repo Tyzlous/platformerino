@@ -53,7 +53,7 @@ int main()
 	sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
 	shape.setPosition(sf::Vector2f(200.0f, 200.0f));
 	shape.setFillColor(sf::Color::Green);
-
+	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(512.f, 512.f));
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -88,6 +88,8 @@ int main()
 		}
 
 		window.clear();
+		view.setCenter(sf::Vector2f(player.getPosition().x + 50.0f, player.getPosition().y + 50.0f));
+		window.setView(view);
 		window.draw(player);
 		window.draw(shape);
 		window.display();
