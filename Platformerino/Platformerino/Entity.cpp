@@ -32,5 +32,5 @@ void Entity::Update()
 
 Collider Entity::GetCollider()
 {
-	return Collider(*body);
+	return Collider(*body, isDynamic);
 }

@@ -4,9 +4,14 @@
 
 Player::Player()
 {
+	
 }
 
 
 Player::~Player()
+{
+}
+
+void Player::Update()
 {
 }
