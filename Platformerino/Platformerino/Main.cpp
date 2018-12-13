@@ -3,13 +3,14 @@
 #include "Player.h"
 int main()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
 	window.setVerticalSyncEnabled(true);
 	Player* player = new Player(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), true);
 	sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
 	shape.setPosition(sf::Vector2f(200.0f, 200.0f));
 	shape.setFillColor(sf::Color::Green);
-	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(512.f, 512.f));
+	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(612.f, 612.f));
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -50,10 +51,11 @@ int main()
 		}
 
 		window.clear();
-		view.setCenter(sf::Vector2f(player.getPosition().x + 50.0f, player.getPosition().y + 50.0f));
-		window.setView(view);*/
+		//view.setCenter(sf::Vector2f(player->GetPosition().x + 50.0f, player->GetPosition().y + 50.0f));
+		//window.setView(view);
 		player->Draw(window);
 		window.draw(shape);
 		window.display();
 	}
+	delete player;
 }
