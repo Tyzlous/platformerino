@@ -40,3 +40,8 @@ void Entity::Move(sf::Vector2f offset)
 {
 	body->move(offset);
 }
+
+sf::Vector2f Entity::GetPosition()
+{
+	return body->getPosition();
+}

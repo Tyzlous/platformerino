@@ -5,12 +5,11 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
 	window.setVerticalSyncEnabled(true);
-	//sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f));
 	Player* player = new Player(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), true);
 	sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
 	shape.setPosition(sf::Vector2f(200.0f, 200.0f));
 	shape.setFillColor(sf::Color::Green);
-	//sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(512.f, 512.f));
+	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(512.f, 512.f));
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -37,12 +36,13 @@ int main()
 				{
 					player->Move(sf::Vector2f(1.0f, 0.0f));
 				}
-				//if(CheckCollision(shape, player, 1.0f))
+				Collider col = Collider(shape, false);
+				Collider col2 = player->GetCollider();
+				//if (player->GetCollider().CheckCollision(col, 0.0f))
 				//{
 				//	std::cout << "collided\n";
 				//}
-				Collider col = Collider(shape, false);
-				if (player->GetCollider().CheckCollision(col, 0.0f))
+				if (col2.CheckCollision(col, 1.0f))
 				{
 					std::cout << "collided\n";
 				}
@@ -50,9 +50,8 @@ int main()
 		}
 
 		window.clear();
-		/*view.setCenter(sf::Vector2f(player.getPosition().x + 50.0f, player.getPosition().y + 50.0f));
+		view.setCenter(sf::Vector2f(player.getPosition().x + 50.0f, player.getPosition().y + 50.0f));
 		window.setView(view);*/
-		/*window.draw(player);*/
 		player->Draw(window);
 		window.draw(shape);
 		window.display();

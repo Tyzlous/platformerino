@@ -11,6 +11,7 @@ public:
 	virtual void Update();
 	Collider GetCollider();
 	void Move(sf::Vector2f offset);
+	sf::Vector2f GetPosition();
 protected:
 	sf::RectangleShape* body = new sf::RectangleShape();
 	bool isDynamic;
