@@ -11,8 +11,10 @@ int main()
 	shape.setPosition(sf::Vector2f(200.0f, 200.0f));
 	shape.setFillColor(sf::Color::Green);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(612.f, 612.f));
+	sf::Clock clock;
 	while (window.isOpen())
 	{
+		float deltaTime = clock.restart().asSeconds();
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -21,36 +23,38 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed)
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-				{
-					player->Move(sf::Vector2f(0.0f, -1.0f));
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-				{
-					player->Move(sf::Vector2f(-1.0f, 0.00f));
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-				{
-					player->Move(sf::Vector2f(0.0f, 1.0f));
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-				{
-					player->Move(sf::Vector2f(1.0f, 0.0f));
-				}
-				Collider col = Collider(shape, false);
-				Collider col2 = player->GetCollider();
+				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+				//{
+				//	player->Move(sf::Vector2f(0.0f, -1.0f));
+				//}
+				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				//{
+				//	player->Move(sf::Vector2f(-1.0f, 0.00f));
+				//}
+				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+				//{
+				//	player->Move(sf::Vector2f(0.0f, 1.0f));
+				//}
+				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+				//{
+				//	player->Move(sf::Vector2f(1.0f, 0.0f));
+				//}
+
 				//if (player->GetCollider().CheckCollision(col, 0.0f))
 				//{
 				//	std::cout << "collided\n";
 				//}
-				if (col2.CheckCollision(col, 1.0f))
-				{
-					std::cout << "collided\n";
-				}
 			}
 		}
 
 		window.clear();
+		player->Update(deltaTime);
+		Collider col = Collider(shape, false);
+		Collider col2 = player->GetCollider();
+		if (col2.CheckCollision(col, 0.0f))
+		{
+			std::cout << "collided\n";
+		}
 		//view.setCenter(sf::Vector2f(player->GetPosition().x + 50.0f, player->GetPosition().y + 50.0f));
 		//window.setView(view);
 		player->Draw(window);

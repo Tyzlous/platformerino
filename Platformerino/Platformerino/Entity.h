@@ -1,6 +1,8 @@
 #pragma once
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
+#include "Animation.h"
 class Entity
 {
 public:
@@ -14,6 +16,7 @@ public:
 	sf::Vector2f GetPosition();
 protected:
 	sf::RectangleShape* body = new sf::RectangleShape();
-	bool isDynamic;
+	sf::Texture* texture = new sf::Texture();
+	bool isDynamic, faceRight;
 };
 

@@ -6,7 +6,8 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position, bool isDynamic)
 {
 	body->setSize(size);
 	body->setPosition(position);
-	body->setFillColor(sf::Color::Green);
+	body->setFillColor(sf::Color::White);
+	body->setTexture(texture);
 	this->isDynamic = isDynamic;
 }
 
@@ -20,6 +21,7 @@ Entity::Entity()
 Entity::~Entity()
 {
 	delete body;
+	delete texture;
 }
 
 void Entity::Draw(sf::RenderWindow & window)

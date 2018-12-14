@@ -5,7 +5,11 @@ class Player : public Entity
 public:
 	Player(sf::Vector2f size, sf::Vector2f position, bool isDynamic);
 	~Player();
-	void Update();
+	void Update(float deltaTime);
 private:
+	std::string sheetPath = "resources/spritesheets/";
+	std::string sheetName = "soldiersheet2.png";
+	float speed;
+	bool idle;
+	Animation* animation;
 };
-
