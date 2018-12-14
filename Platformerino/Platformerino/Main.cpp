@@ -1,18 +1,15 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Platform.h"
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
 	window.setVerticalSyncEnabled(true);
 	Player* player = new Player(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), true);
+	Platform* platform = new Platform(sf::Vector2f(680.0f, 50.0f), sf::Vector2f(200.0f, 400.0f));
 	sf::RectangleShape background(sf::Vector2f(window.getSize()));
-	sf::RectangleShape placeholder(sf::Vector2f(680.0f, 60.0f));
-	sf::RectangleShape testDot(sf::Vector2f(4.0f, 4.0f));
-	testDot.setFillColor(sf::Color::Red);
-	testDot.setPosition(player->GetPosition());
-	placeholder.setPosition(300.0f, 300.0f);
 	background.setFillColor(sf::Color::Blue);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(612.f, 612.f));
 	sf::Clock clock;
@@ -54,7 +51,7 @@ int main()
 
 		window.clear();
 		player->Update(deltaTime);
-		Collider col = Collider(placeholder, true);
+		Collider col = platform->GetCollider();
 		Collider col2 = player->GetCollider();
 		if (col2.CheckCollision(col, 1.0f))
 		{
@@ -63,9 +60,8 @@ int main()
 		//view.setCenter(sf::Vector2f(player->GetPosition().x + 50.0f, player->GetPosition().y + 50.0f));
 		//window.setView(view);
 		window.draw(background);
+		platform->Draw(window);
 		player->Draw(window);
-		window.draw(placeholder);
-		window.draw(testDot);
 		window.display();
 	}
 	delete player;

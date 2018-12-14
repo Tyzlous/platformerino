@@ -13,12 +13,14 @@ public:
 	virtual void Update();
 	Collider GetCollider();
 	void Move(sf::Vector2f offset);
+	void SetPosition(sf::Vector2f newPos);
 	sf::Vector2f GetPosition();
 	void Dynamic(bool onoroff);
 	void originMiddle();
 protected:
 	sf::RectangleShape* body;
 	sf::Texture* texture = new sf::Texture();
-	bool isDynamic, faceRight;
+	bool isDynamic;
+	bool faceRight = true;
 };
 

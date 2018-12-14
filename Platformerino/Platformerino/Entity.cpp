@@ -6,7 +6,6 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position, bool isDynamic) :
 	body(new sf::RectangleShape(size))
 {
 	body->setPosition(position);
-	body->setFillColor(sf::Color::White);
 	body->setTexture(texture);
 	this->isDynamic = isDynamic;
 }
@@ -41,6 +40,11 @@ Collider Entity::GetCollider()
 void Entity::Move(sf::Vector2f offset)
 {
 	body->move(offset);
+}
+
+void Entity::SetPosition(sf::Vector2f newPos)
+{
+	body->setPosition(newPos);
 }
 
 sf::Vector2f Entity::GetPosition()

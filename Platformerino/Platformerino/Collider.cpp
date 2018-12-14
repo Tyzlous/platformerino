@@ -23,11 +23,12 @@ void Collider::Move(float dx, float dy)
 	body.move(dx, dy);
 }
 
-bool Collider::CheckCollision(Collider & other, float push) //This AABB collision only works with middle origins or using middle positions
+bool Collider::CheckCollision(Collider & other, float push) 
 {
-	sf::Vector2f otherPosition = other.GetPosition();
+	sf::Vector2f otherPosition = other.GetPosition(); //This AABB collision only works with middle origins or using middle positions
 	sf::Vector2f otherHalfSize = other.GetHalfSize();
 	sf::Vector2f otherMiddlePosition = sf::Vector2f(other.body.getGlobalBounds().left + otherHalfSize.x, other.body.getGlobalBounds().top + otherHalfSize.y);
+	
 	sf::Vector2f thisPosition = GetPosition();
 	sf::Vector2f thisHalfSize = GetHalfSize();
 	sf::Vector2f thisMiddlePosition = sf::Vector2f(body.getGlobalBounds().left + thisHalfSize.x, body.getGlobalBounds().top + thisHalfSize.y);
