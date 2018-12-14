@@ -6,7 +6,7 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
 	window.setVerticalSyncEnabled(true);
-	Player* player = new Player(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), true);
+	Player* player = new Player(sf::Vector2f(110.0f, 110.0f), sf::Vector2f(10.0f, 10.0f), true);
 	sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
 	sf::RectangleShape background(sf::Vector2f(window.getSize()));
 	background.setFillColor(sf::Color::Blue);
