@@ -14,8 +14,10 @@ public:
 	Collider GetCollider();
 	void Move(sf::Vector2f offset);
 	sf::Vector2f GetPosition();
+	void Dynamic(bool onoroff);
+	void originMiddle();
 protected:
-	sf::RectangleShape* body = new sf::RectangleShape();
+	sf::RectangleShape* body;
 	sf::Texture* texture = new sf::Texture();
 	bool isDynamic, faceRight;
 };

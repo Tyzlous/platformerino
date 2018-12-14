@@ -6,14 +6,17 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
 	window.setVerticalSyncEnabled(true);
-	Player* player = new Player(sf::Vector2f(110.0f, 110.0f), sf::Vector2f(10.0f, 10.0f), true);
-	sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
+	Player* player = new Player(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), true);
 	sf::RectangleShape background(sf::Vector2f(window.getSize()));
+	sf::RectangleShape placeholder(sf::Vector2f(680.0f, 60.0f));
+	sf::RectangleShape testDot(sf::Vector2f(4.0f, 4.0f));
+	testDot.setFillColor(sf::Color::Red);
+	testDot.setPosition(player->GetPosition());
+	placeholder.setPosition(300.0f, 300.0f);
 	background.setFillColor(sf::Color::Blue);
-	shape.setPosition(sf::Vector2f(200.0f, 200.0f));
-	shape.setFillColor(sf::Color::Green);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(612.f, 612.f));
 	sf::Clock clock;
+	player->Dynamic(true);
 	while (window.isOpen())
 	{
 		float deltaTime = clock.restart().asSeconds();
@@ -27,19 +30,19 @@ int main()
 			{
 				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 				//{
-				//	player->Move(sf::Vector2f(0.0f, -1.0f));
+				//	placeholder.move(sf::Vector2f(0.0f, -3.0f));
 				//}
 				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 				//{
-				//	player->Move(sf::Vector2f(-1.0f, 0.00f));
+				//	placeholder.move(sf::Vector2f(-3.0f, 0.00f));
 				//}
 				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 				//{
-				//	player->Move(sf::Vector2f(0.0f, 1.0f));
+				//	placeholder.move(sf::Vector2f(0.0f, 3.0f));
 				//}
 				//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 				//{
-				//	player->Move(sf::Vector2f(1.0f, 0.0f));
+				//	placeholder.move(sf::Vector2f(3.0f, 0.0f));
 				//}
 
 				//if (player->GetCollider().CheckCollision(col, 0.0f))
@@ -51,7 +54,7 @@ int main()
 
 		window.clear();
 		player->Update(deltaTime);
-		Collider col = Collider(shape, false);
+		Collider col = Collider(placeholder, true);
 		Collider col2 = player->GetCollider();
 		if (col2.CheckCollision(col, 1.0f))
 		{
@@ -61,7 +64,8 @@ int main()
 		//window.setView(view);
 		window.draw(background);
 		player->Draw(window);
-		window.draw(shape);
+		window.draw(placeholder);
+		window.draw(testDot);
 		window.display();
 	}
 	delete player;

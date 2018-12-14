@@ -23,15 +23,17 @@ void Collider::Move(float dx, float dy)
 	body.move(dx, dy);
 }
 
-bool Collider::CheckCollision(Collider & other, float push)
+bool Collider::CheckCollision(Collider & other, float push) //This AABB collision only works with middle origins or using middle positions
 {
 	sf::Vector2f otherPosition = other.GetPosition();
 	sf::Vector2f otherHalfSize = other.GetHalfSize();
+	sf::Vector2f otherMiddlePosition = sf::Vector2f(other.body.getGlobalBounds().left + otherHalfSize.x, other.body.getGlobalBounds().top + otherHalfSize.y);
 	sf::Vector2f thisPosition = GetPosition();
 	sf::Vector2f thisHalfSize = GetHalfSize();
+	sf::Vector2f thisMiddlePosition = sf::Vector2f(body.getGlobalBounds().left + thisHalfSize.x, body.getGlobalBounds().top + thisHalfSize.y);
 	
-	float deltaX = otherPosition.x - thisPosition.x; // Delta means it's that axis' distance between positions
-	float deltaY = otherPosition.y - thisPosition.y;
+	float deltaX = otherMiddlePosition.x - thisMiddlePosition.x; // Delta means it's that axis' distance between positions
+	float deltaY = otherMiddlePosition.y - thisMiddlePosition.y;
 	float intersectX = abs(deltaX) - (otherHalfSize.x + thisHalfSize.x); // what value is left after taking the ABSOLUTE value of delta minus the half sizes of the rectangles?
 	float intersectY = abs(deltaY) - (otherHalfSize.y + thisHalfSize.y);
 	if (intersectX < 0.0f && intersectY < 0.0f) // Check if that value is less than zero on both axises to determine an intersection
@@ -77,10 +79,15 @@ bool Collider::CheckCollision(Collider & other, float push)
 
 sf::Vector2f Collider::GetPosition()
 {
-	return sf::Vector2f(body.getPosition());
+	return sf::Vector2f(body.getPosition().x, body.getPosition().y);
 }
 
 sf::Vector2f Collider::GetHalfSize()
 {
-	return sf::Vector2f(body.getSize() * 0.5f);
+	return sf::Vector2f(body.getSize().x * 0.5f, body.getSize().y * 0.5f);
+}
+
+void Collider::Dynamic(bool onoroff)
+{
+	isDynamic = onoroff;
 }

@@ -2,9 +2,9 @@
 
 
 
-Entity::Entity(sf::Vector2f size, sf::Vector2f position, bool isDynamic)
+Entity::Entity(sf::Vector2f size, sf::Vector2f position, bool isDynamic) :
+	body(new sf::RectangleShape(size))
 {
-	body->setSize(size);
 	body->setPosition(position);
 	body->setFillColor(sf::Color::White);
 	body->setTexture(texture);
@@ -46,4 +46,14 @@ void Entity::Move(sf::Vector2f offset)
 sf::Vector2f Entity::GetPosition()
 {
 	return body->getPosition();
+}
+
+void Entity::Dynamic(bool onoroff)
+{
+	isDynamic = onoroff;
+}
+
+void Entity::originMiddle()
+{
+	body->setOrigin(body->getSize().x * 0.5f, body->getSize().y * 0.5f);
 }
