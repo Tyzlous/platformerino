@@ -13,7 +13,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position, bool isDynamic) :
 	{
 		std::cout << "failed to load texture " + sheetPath + " " + sheetName + "\n";
 	}
-	animation = new Animation(texture, sf::Vector2u(4, 1), 0.4f);
+	animation = new Animation(texture, sf::Vector2u(4, 1), 0.25);
 	faceRight = true;
 	speed = size.x;
 }

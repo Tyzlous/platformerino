@@ -8,7 +8,7 @@ public:
 	void Update(float deltaTime);
 private:
 	std::string sheetPath = "resources/spritesheets/";
-	std::string sheetName = "soldiersheet2.png";
+	std::string sheetName = "soldiersheetfinal.png";
 	float speed;
 	bool idle;
 	Animation* animation;

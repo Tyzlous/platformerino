@@ -8,6 +8,8 @@ int main()
 	window.setVerticalSyncEnabled(true);
 	Player* player = new Player(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), true);
 	sf::RectangleShape shape(sf::Vector2f(100.0f, 100.0f));
+	sf::RectangleShape background(sf::Vector2f(window.getSize()));
+	background.setFillColor(sf::Color::Blue);
 	shape.setPosition(sf::Vector2f(200.0f, 200.0f));
 	shape.setFillColor(sf::Color::Green);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(612.f, 612.f));
@@ -57,6 +59,7 @@ int main()
 		}
 		//view.setCenter(sf::Vector2f(player->GetPosition().x + 50.0f, player->GetPosition().y + 50.0f));
 		//window.setView(view);
+		window.draw(background);
 		player->Draw(window);
 		window.draw(shape);
 		window.display();

@@ -23,15 +23,19 @@ Animation::~Animation()
 
 void Animation::Update(int row, float deltaTime, bool faceRight, bool idle)
 {
+	totalTime += deltaTime;
 	if (idle)
 	{
-		currentImage.x = idleImage.x;
-		currentImage.y = idleImage.y;
+		if (totalTime >= switchTime)
+		{
+			totalTime -= switchTime;
+			currentImage.x = idleImage.x;
+			currentImage.y = idleImage.y;
+		}
 	}
 	else
 	{
 		currentImage.y = row;
-		totalTime += deltaTime;
 		if (totalTime >= switchTime)
 		{
 			totalTime -= switchTime;
