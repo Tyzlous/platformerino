@@ -36,7 +36,14 @@ bool Collider::CheckCollision(Collider & other, float push)
 	float intersectY = abs(deltaY) - (otherHalfSize.y + thisHalfSize.y);
 	if (intersectX < 0.0f && intersectY < 0.0f) // Check if that value is less than zero on both axises to determine an intersection
 	{
-		push = std::min(std::max(push, 0.0f), 1.0f); // clamping the push value to be between 0 and 1
+		if (other.isDynamic)
+		{
+			push = std::min(std::max(push, 0.0f), 1.0f); // clamping the push value to be between 0 and 1
+		}
+		else
+		{
+			push = 0.0f;
+		}
 		if (intersectX > intersectY) // check which axis is largest to determine which axis to move by. -1 is larger than -2. So if X is intersecting with a value of -1, it has priority over the y that intersects with a value of -2.
 		{
 			if (deltaX > 0.0f) // check if the original delta is a positive or negative value to know whether to move positively or negatively, AKA right or left.

@@ -51,7 +51,7 @@ int main()
 		player->Update(deltaTime);
 		Collider col = Collider(shape, false);
 		Collider col2 = player->GetCollider();
-		if (col2.CheckCollision(col, 0.0f))
+		if (col2.CheckCollision(col, 1.0f))
 		{
 			std::cout << "collided\n";
 		}
