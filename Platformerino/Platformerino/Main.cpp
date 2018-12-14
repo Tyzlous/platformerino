@@ -65,4 +65,5 @@ int main()
 		window.display();
 	}
 	delete player;
+	delete platform;
 }
