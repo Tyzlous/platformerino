@@ -47,7 +47,7 @@ void Player::Update(float deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canJump)
 	{
 		canJump = false;
-		velocity.y = -sqrtf(2.0f * 981.0f * jumpHeight);
+		velocity.y = -sqrtf(2.0f * 981.0f * jumpHeight); // initial velocity is equals to 2as squared. 2as = 2 * acceleration * speed/displacement. Square root of 2as is the initial velocity.
 		// square root ( 2.0f * gravity * jumpHeight);
 	}
 	if (velocity.x == 0.0f && velocity.y == 0.0f)
