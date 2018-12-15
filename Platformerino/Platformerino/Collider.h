@@ -7,7 +7,7 @@ public:
 	Collider();
 	~Collider();
 	void Move(float dx, float dy);
-	bool CheckCollision(Collider& other, float push);
+	bool CheckCollision(Collider& other, sf::Vector2f& direction, float push);
 	sf::Vector2f GetPosition();
 	sf::Vector2f GetHalfSize();
 	void Dynamic(bool onoroff);

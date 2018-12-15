@@ -2,8 +2,8 @@
 
 
 
-Player::Player(sf::Vector2f size, sf::Vector2f position, bool isDynamic) :
-	Entity(size, position, isDynamic)
+Player::Player(sf::Vector2f size, sf::Vector2f position, float jumpHeight, bool isDynamic) :
+	Entity(size, position, isDynamic), jumpHeight(jumpHeight)
 {
 	if (texture->loadFromFile(sheetPath + sheetName))
 	{
@@ -16,6 +16,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position, bool isDynamic) :
 	animation = new Animation(texture, sf::Vector2u(4, 1), 0.25);
 	faceRight = true;
 	speed = size.x;
+	canJump = true;
 }
 
 
@@ -26,42 +27,73 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	sf::Vector2f movement(0.0f, 0.0f);
-
+	velocity.x = 0.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		movement.y = -(speed * deltaTime);
+		velocity.y -= speed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		movement.x = -(speed * deltaTime);
+		velocity.x -= speed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		movement.y = speed * deltaTime;
+		velocity.y += speed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		movement.x = speed * deltaTime;
+		velocity.x += speed;
 	}
-	if (movement.x == 0.0f && movement.y == 0.0f)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canJump)
+	{
+		canJump = false;
+		velocity.y = -sqrtf(2.0f * 981.0f * jumpHeight);
+		// square root ( 2.0f * gravity * jumpHeight);
+	}
+	if (velocity.x == 0.0f && velocity.y == 0.0f)
 	{
 		idle = true;
 	}
 	else
 	{
 		idle = false;
-		if (movement.x > 0.0f)
+		if (velocity.x > 0.0f)
 		{
 			faceRight = true;
 		}
-		if (movement.x < 0.0f)
+		if (velocity.x < 0.0f)
 		{
 			faceRight = false;
 		}
 
 	}
+	velocity.y += 981.0f * deltaTime;
 	animation->Update(0, deltaTime, faceRight, idle);
 	body->setTextureRect(animation->uvRect);
-	body->move(movement);
+	body->move(velocity  * deltaTime);
+}
+
+void Player::OnCollision(sf::Vector2f direction)
+{
+	if (direction.x < 0.0f)
+	{
+		//collision on left etc
+		velocity.x = 0.0f;
+	}
+	else if (direction.x > 0.0f)
+	{
+		//collision on right
+		velocity.x = 0.0f;
+	}
+	if (direction.y > 0.0f)
+	{
+		//bottom
+		velocity.y = 0.0f;
+		canJump = true;
+	}
+	if (direction.y < 0.0f)
+	{
+		//top
+		velocity.y = 0.0f;
+	}
 }

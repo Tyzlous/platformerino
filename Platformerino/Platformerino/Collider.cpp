@@ -23,7 +23,7 @@ void Collider::Move(float dx, float dy)
 	body.move(dx, dy);
 }
 
-bool Collider::CheckCollision(Collider & other, float push) 
+bool Collider::CheckCollision(Collider & other, sf::Vector2f& direction, float push) 
 {
 	sf::Vector2f otherPosition = other.GetPosition(); //This AABB collision only works with middle origins or using middle positions
 	sf::Vector2f otherHalfSize = other.GetHalfSize();
@@ -53,11 +53,15 @@ bool Collider::CheckCollision(Collider & other, float push)
 			{
 				Move(intersectX * (1.0f - push), 0.0f); // Moves the player object by the amount it was intersecting positively, to effectively undo the intersection. Multiplied by 1 minus push, this way we can achieve a balance between the movement of both obstacle and player object to give an illusion of weight behind the obstacle.
 				other.Move(-intersectX * push, 0.0f); // Moves the obstacle by the intersection value, but invertedly. This gives the effect that the player object is pushing the obstacle in the direction it is moving. Since if there is a push value, we split movement needed to undo intersection between both objects, otherwise only the player object will be pushed the opposite way it was heading.
+				direction.x = 1.0f;
+				direction.y = 0.0f;
 			}
 			else
 			{
 				Move(-intersectX * (1.0f - push), 0.0f); // Same as above, but the math is inverted because the player object was a negative value of distance from the obstacle. Which means the player is on the left side in this case.
 				other.Move(intersectX * push, 0.0f);
+				direction.x = -1.0f;
+				direction.y = 0.0f;
 			}
 		}
 		else // If the X axis intersection value isn't larger than the Y, or the values are equal, it will move by the Y axis.
@@ -66,11 +70,15 @@ bool Collider::CheckCollision(Collider & other, float push)
 			{
 				Move(0.0f, intersectY * (1.0f - push)); // Same as above, we determine how much to move the player to undo intersection.
 				other.Move(0.0f, -intersectY * push); // And how much to move the obstacle, to undo intersection.
+				direction.x = 0.0f;
+				direction.y = 1.0f;
 			}
 			else
 			{
 				Move(0.0f, -intersectY * (1.0f - push));
 				other.Move(0.0f, intersectY * push);
+				direction.x = 0.0f;
+				direction.y = -1.0f;
 			}
 		}
 		return true;
